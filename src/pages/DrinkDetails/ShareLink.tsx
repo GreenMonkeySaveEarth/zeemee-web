@@ -35,7 +35,7 @@ const ShareLink = ({ drinkId }: { drinkId: string }) => {
 						pl: 2,
 						pr: 0,
 						py: 1,
-						backgroundColor: 'white',
+						backgroundColor: 'Sky.White',
 						color: 'grey.400',
 						height: '48px',
 					}}

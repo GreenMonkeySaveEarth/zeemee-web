@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { TextField, Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import axios from 'axios';
-
+import { useSearch } from '../../context/searchContext';
 
 const AllDrinks = () => {
 	const [drinks, setDrinks] = useState([]);
 	const [loading, setLoading] = useState(false);
-	const [query, setQuery] = useState('');
 	const [page, setPage] = useState(1);
 	const navigate = useNavigate();
+	const { query } = useSearch();
 
 	useEffect(() => {
 		fetchDrinks();
@@ -26,24 +26,8 @@ const AllDrinks = () => {
 		setLoading(false);
 	};
 
-	const handleSearch = (e) => {
-		if (e.key === 'Enter') {
-			setPage(1);
-			fetchDrinks();
-		}
-	};
-
 	return (
-		<div>
-			<header>
-				<img src="logo.png" alt="Logo" />
-				<TextField
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-					onKeyPress={handleSearch}
-					placeholder="Search for drinks"
-				/>
-			</header>
+		<Box>
 			{loading ? (
 				<CircularProgress />
 			) : (
@@ -59,7 +43,7 @@ const AllDrinks = () => {
 					<Button onClick={() => setPage((prev) => prev + 1)}>Next</Button>
 				</div>
 			)}
-		</div>
+		</Box>
 	);
 };
 

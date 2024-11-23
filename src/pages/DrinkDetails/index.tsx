@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { Drink } from '@/types/drink';
 import DrinkContent from './DrinkContent';
 import DrinkHeader from './DrinkHeader';
-
 
 const DrinkDetails = () => {
   const { id } = useParams();
@@ -33,7 +32,7 @@ const DrinkDetails = () => {
   };
 
   return (
-    <div>
+    <Box>
       {loading ? (
         <CircularProgress />
       ) : (
@@ -50,7 +49,7 @@ const DrinkDetails = () => {
           </Box>
         )
       )}
-    </div>
+    </Box>
   );
 };
 
