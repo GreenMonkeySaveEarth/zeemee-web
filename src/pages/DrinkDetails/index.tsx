@@ -1,54 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, CircularProgress } from '@mui/material';
-import axios from 'axios';
-import { Drink } from '@/types/drink';
+import { Box } from '@mui/material';
+import { useSearch } from '../../context/SearchContext';
 import DrinkContent from './DrinkContent';
 import DrinkHeader from './DrinkHeader';
+import NoResult from '@/components/NoResult';
+import DefaultLoading from '@/components/DefaultLoading';
 
 const DrinkDetails = () => {
   const { id } = useParams();
-  const [drink, setDrink] = useState<null | Drink>(null);
-  const [loading, setLoading] = useState(false);
+  const { fetchDrinkDetails, drinkDetails, drinkDetailsLoading } = useSearch();
 
   useEffect(() => {
-    fetchDrinkDetails();
+    if (id) {
+      fetchDrinkDetails(id);
+    }
   }, [id]);
 
-  const fetchDrinkDetails = async () => {
-    setLoading(true);
-    try {
-      // const response = await axios.get(`API_ENDPOINT/${id}`);
-      // Load the drink details from the data/cocktail_recipes.json file
-      const response = await axios.get('/data/cocktail_recipes.json');
-      // console.log('response', response);
-      // const drinkDetails = response.data.find((d: Drink) => d.id === id);
-      const drinkDetails = response.data[0]
-      setDrink(drinkDetails);
-    } catch (error) {
-      console.error(error);
-    }
-    setLoading(false);
-  };
+  if (drinkDetailsLoading) {
+    return <DefaultLoading />;
+  }
+
+  if (!id || !drinkDetails) {
+    return <NoResult />;
+  }
 
   return (
-    <Box>
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        drink && (
-          <Box display="flex" justifyContent="center">
-            <Box>
-              <Box sx={{ mt: 6 }}>
-                <DrinkHeader drink={drink} />
-              </Box>
-              <Box sx={{ mt: 3 }}>
-                <DrinkContent drink={drink} />
-              </Box>
-            </Box>
-          </Box>
-        )
-      )}
+    <Box display="flex" justifyContent="center">
+      <Box>
+        <Box sx={{ mt: 6 }}>
+          <DrinkHeader drink={drinkDetails} />
+        </Box>
+        <Box sx={{ mt: 3 }}>
+          <DrinkContent drink={drinkDetails} />
+        </Box>
+      </Box>
     </Box>
   );
 };
