@@ -1,47 +1,86 @@
-import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, CircularProgress } from '@mui/material';
-import axios from 'axios';
-import { useSearch } from '../../context/searchContext';
+import { Box, Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+import { useSearch } from '../../context/SearchContext';
+import NoResult from '@/components/NoResult';
+import DefaultLoading from '@/components/DefaultLoading';
 
 const AllDrinks = () => {
-	const [drinks, setDrinks] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [page, setPage] = useState(1);
 	const navigate = useNavigate();
-	const { query } = useSearch();
+	const { drinks, setPage, page, searchDrinkLoading } = useSearch();
+	const handlePrevPage = () => {
+		setPage((prev) => Math.max(prev - 1, 1))
+	}
 
-	useEffect(() => {
-		fetchDrinks();
-	}, [page, query]);
+	const handleNextPage = () => {
+		setPage((prev) => prev + 1)
+	}
 
-	const fetchDrinks = async () => {
-		setLoading(true);
-		try {
-			const response = await axios.get(`API_ENDPOINT?page=${page}&query=${query}`);
-			setDrinks(response.data.drinks);
-		} catch (error) {
-			console.error(error);
-		}
-		setLoading(false);
+	const handleOnClick = (id: string) => {
+		navigate(`/drinks/${id}`)
+	}
+
+	const renderDrinks = () => {
+		return (
+			<Box maxWidth="906px" margin="0 auto">
+				<Grid container spacing={3} justifyContent="flex-start">
+					{drinks.map((drink) => (
+						<Grid item xs={12} md={6} key={drink.id}>
+							<Card
+								sx={{
+									display: 'flex',
+									cursor: 'pointer',
+									border: '2px solid white',
+									padding: 2,
+								}}
+								onClick={() => handleOnClick(drink.id)}
+							>
+								<CardMedia
+									component="img"
+									sx={{ width: '25%', objectFit: 'contain' }}
+									image={drink.image}
+									alt={drink.name}
+								/>
+								<Box sx={{ display: 'flex', flexDirection: 'column', width: '75%' }}>
+									<CardContent sx={{ flex: '1 0 auto' }}>
+										<Typography variant="h6">{drink.name}</Typography>
+										<Typography variant="body2" color="textSecondary">
+											{drink.category}
+										</Typography>
+									</CardContent>
+								</Box>
+							</Card>
+						</Grid>
+					))}
+				</Grid>
+				<Box sx={{ mt: 2 }}>
+					<Button sx={{ color: 'Sky.White' }} onClick={handlePrevPage} disabled={page === 1} startIcon={<ChevronLeftOutlinedIcon />} />
+					<Button sx={{ color: 'Sky.White' }} onClick={handleNextPage} endIcon={<ChevronRightOutlinedIcon />} />
+				</Box>
+			</Box>
+		);
 	};
 
 	return (
 		<Box>
-			{loading ? (
-				<CircularProgress />
+			{searchDrinkLoading ? (
+				<DefaultLoading />
 			) : (
-				<div>
-					<ul>
-						{drinks.map((drink) => (
-							<li key={drink.id} onClick={() => navigate(`/cocktails/${drink.id}`)}>
-								{drink.name}
-							</li>
-						))}
-					</ul>
-					<Button onClick={() => setPage((prev) => Math.max(prev - 1, 1))}>Previous</Button>
-					<Button onClick={() => setPage((prev) => prev + 1)}>Next</Button>
-				</div>
+				<Box>
+					{drinks.length === 0 ? (
+						<NoResult />
+					) : (
+						<Box sx={{ mt: 7 }}>
+							<Typography variant="h4" align="center">
+								All Drinks
+							</Typography>
+							<Box display="flex" justifyContent="center" sx={{ mt: 3 }}>
+								{renderDrinks()}
+							</Box>
+						</Box>
+					)}
+				</Box>
 			)}
 		</Box>
 	);

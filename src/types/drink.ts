@@ -1,4 +1,5 @@
 interface Drink {
+  id: string;
   name: string;
   category: string;
   container: string;
