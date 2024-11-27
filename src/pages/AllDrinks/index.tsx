@@ -6,6 +6,7 @@ import { useSearch } from '../../context/SearchContext';
 import NoResult from '@/components/NoResult';
 import DefaultLoading from '@/components/DefaultLoading';
 import Title from './Title';
+import CategoryTag from '@/components/CategoryTag';
 
 const AllDrinks = () => {
 	const navigate = useNavigate();
@@ -48,9 +49,7 @@ const AllDrinks = () => {
 								<Box sx={{ display: 'flex', flexDirection: 'column', width: '75%' }}>
 									<CardContent sx={{ flex: '1 0 auto' }}>
 										<Typography variant="h6">{drink.name}</Typography>
-										<Typography variant="body2" color="textSecondary">
-											{drink.category}
-										</Typography>
+										<CategoryTag category={drink.category} />
 									</CardContent>
 								</Box>
 							</Card>

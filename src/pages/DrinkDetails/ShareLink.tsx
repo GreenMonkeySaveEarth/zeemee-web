@@ -20,10 +20,10 @@ const CopyButton = (): JSX.Element => (
 )
 
 
-const ShareLink = ({ drinkId }: { drinkId: string }) => {
+const ShareLink = () => {
 	return (
 		<>
-			<Typography variant="h4" color={'grey.300'}>Share Link</Typography>
+			<Typography variant="h4" color={'grey.700'}>Share Link</Typography>
 			<Box sx={{ display: 'flex', alignItems: 'center', pt: 1 }}>
 				<Input
 					type="text"
