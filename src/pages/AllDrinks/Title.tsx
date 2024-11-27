@@ -9,7 +9,7 @@ const Title = ({ query, totalCount }: TitleProps): JSX.Element => {
 			{query ? (
 				<Box display="flex" justifyContent="space-between" alignItems="center">
 					<Typography variant="h4">
-						Search: "{query}"
+						Search: {query}
 					</Typography>
 					<Typography variant="h6">
 						{totalCount} {totalCount === 1 ? 'result' : 'results'}

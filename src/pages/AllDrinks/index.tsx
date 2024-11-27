@@ -47,7 +47,7 @@ const AllDrinks = () => {
 								/>
 								<Box sx={{ display: 'flex', flexDirection: 'column', width: '75%' }}>
 									<CardContent sx={{ flex: '1 0 auto' }}>
-										<Typography variant="h6">{drink.name} - {drink.id}</Typography>
+										<Typography variant="h6">{drink.name}</Typography>
 										<Typography variant="body2" color="textSecondary">
 											{drink.category}
 										</Typography>
