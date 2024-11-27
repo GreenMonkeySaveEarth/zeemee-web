@@ -5,16 +5,19 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import { useSearch } from '../../context/SearchContext';
 import NoResult from '@/components/NoResult';
 import DefaultLoading from '@/components/DefaultLoading';
+import Title from './Title';
 
 const AllDrinks = () => {
 	const navigate = useNavigate();
-	const { drinks, setPage, page, searchDrinkLoading } = useSearch();
+	const { drinks, setPage, page, searchDrinkLoading, query, totalCount, setOffset, limit } = useSearch();
 	const handlePrevPage = () => {
 		setPage((prev) => Math.max(prev - 1, 1))
+		setOffset((prev) => Math.max(prev - limit, 0))
 	}
 
 	const handleNextPage = () => {
 		setPage((prev) => prev + 1)
+		setOffset((prev) => prev + limit)
 	}
 
 	const handleOnClick = (id: string) => {
@@ -23,7 +26,7 @@ const AllDrinks = () => {
 
 	const renderDrinks = () => {
 		return (
-			<Box maxWidth="906px" margin="0 auto">
+			<Box>
 				<Grid container spacing={3} justifyContent="flex-start">
 					{drinks.map((drink) => (
 						<Grid item xs={12} md={6} key={drink.id}>
@@ -44,7 +47,7 @@ const AllDrinks = () => {
 								/>
 								<Box sx={{ display: 'flex', flexDirection: 'column', width: '75%' }}>
 									<CardContent sx={{ flex: '1 0 auto' }}>
-										<Typography variant="h6">{drink.name}</Typography>
+										<Typography variant="h6">{drink.name} - {drink.id}</Typography>
 										<Typography variant="body2" color="textSecondary">
 											{drink.category}
 										</Typography>
@@ -71,18 +74,16 @@ const AllDrinks = () => {
 					{drinks.length === 0 ? (
 						<NoResult />
 					) : (
-						<Box sx={{ mt: 7 }}>
-							<Typography variant="h4" align="center">
-								All Drinks
-							</Typography>
+						<Box sx={{ mt: 7, maxWidth: '906px', margin: '0 auto' }}>
+							<Title query={query} totalCount={totalCount} />
 							<Box display="flex" justifyContent="center" sx={{ mt: 3 }}>
 								{renderDrinks()}
 							</Box>
 						</Box>
 					)}
-				</Box>
+				</Box >
 			)}
-		</Box>
+		</Box >
 	);
 };
 

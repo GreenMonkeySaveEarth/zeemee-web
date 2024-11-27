@@ -5,11 +5,14 @@ interface SearchContextProps {
 	handleSearch: (searchQuery: string) => void;
 	drinks: Drink[] | [];
 	setPage: React.Dispatch<React.SetStateAction<number>>;
+	setOffset: React.Dispatch<React.SetStateAction<number>>;
+	limit: number;
 	page: number;
 	searchDrinkLoading: boolean;
 	fetchDrinkDetails: (id: string) => void;
 	drinkDetails: Drink | null;
 	drinkDetailsLoading: boolean;
+	totalCount: number;
 }
 interface SearchProviderProps {
 	children: React.ReactNode
@@ -22,7 +25,9 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 	const [drinkDetails, setDrink] = useState<null | Drink>(null);
 	const [searchDrinkLoading, setSearchDrinkLoading] = useState(false);
 	const [drinkDetailsLoading, setDrinkDetailsLoading] = useState(false);
+	const [totalCount, setTotalCount] = useState(0);
 	const [page, setPage] = useState(1);
+	const [offset, setOffset] = useState(0); // Set the offset for pagination
 	const [limit] = useState(6); // Set the limit for pagination
 
 	useEffect(() => {
@@ -53,9 +58,10 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 	const fetchDrinks = async () => {
 		setSearchDrinkLoading(true);
 		try {
-			const response = await fetch(`${import.meta.env.VITE_API_URL}/api/drinks/search?index=${page}&limit=${limit}&query=${query}`);
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/api/drinks/search?index=${offset}&limit=${limit}&query=${query}`);
 			const data = await response.json();
 			setDrinks(data.drinks);
+			setTotalCount(data.totalCount);
 		} catch (error) {
 			console.error(error);
 		}
@@ -67,12 +73,15 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 			query,
 			handleSearch,
 			drinks,
+			limit,
 			setPage,
+			setOffset,
 			page,
 			searchDrinkLoading,
 			fetchDrinkDetails,
 			drinkDetails,
-			drinkDetailsLoading
+			drinkDetailsLoading,
+			totalCount
 		}}>
 			{children}
 		</SearchContext.Provider>
