@@ -1,23 +1,37 @@
+
+import { useState } from 'react';
+
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import { Typography, Box, Input, Button } from "@mui/material"
 
+const CopyButton = (): JSX.Element => {
+	const [copied, setCopied] = useState(false);
 
-const CopyButton = (): JSX.Element => (
-	<Button
-		variant="contained"
-		sx={{
-			py: 1,
-			backgroundColor: 'blue',
-			borderRadius: '0 8px 8px 0',
-		}}
-		onClick={() => navigator.clipboard.writeText(window.location.href)}
-	>
-		<Box sx={{ px: 1 }}>
-			<ContentCopyOutlinedIcon />
-		</Box>
-		Copy
-	</Button>
-)
+	const handleCopy = () => {
+		navigator.clipboard.writeText(window.location.href);
+		setCopied(true);
+	};
+
+	return (
+		<Button
+			variant="contained"
+			sx={{
+				py: 1.5,
+				backgroundColor: 'blue',
+				borderRadius: '0 8px 8px 0',
+				display: 'flex',
+				alignItems: 'center',
+			}}
+			onClick={handleCopy}
+		>
+			<Box sx={{ display: 'flex', alignItems: 'center', px: 1 }}>
+				{copied ? <CheckCircleOutlinedIcon /> : <ContentCopyOutlinedIcon />}
+			</Box>
+			{copied ? 'Copied' : 'Copy'}
+		</Button>
+	);
+};
 
 
 const ShareLink = () => {
@@ -37,7 +51,6 @@ const ShareLink = () => {
 						py: 1,
 						backgroundColor: 'Sky.White',
 						color: 'grey.400',
-						height: '48px',
 					}}
 
 				/>
