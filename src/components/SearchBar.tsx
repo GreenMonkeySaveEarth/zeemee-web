@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Input, Button, Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useSearch } from '../context/searchContext';
+import { useSearch } from '../context/SearchContext';
 
 const SearchBar = () => {
 	const { handleSearch } = useSearch();
@@ -21,6 +21,11 @@ const SearchBar = () => {
 					placeholder="Search all drinks"
 					style={{ border: 'none', outline: 'none', flex: 1, height: '100%', paddingLeft: '8px', backgroundColor: 'transparent' }}
 					disableUnderline
+					onKeyPress={(e) => {
+						if (e.key === 'Enter') {
+							onSearch();
+						}
+					}}
 				/>
 			</Box>
 			<Button onClick={onSearch} variant="outlined" sx={{

@@ -5,7 +5,7 @@ import store from './app/store';
 import React from 'react';
 import App from './App';
 import './main.css';
-import { SearchProvider } from './context/searchContext';
+import { SearchProvider } from './context/SearchContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
