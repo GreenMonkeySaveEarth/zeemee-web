@@ -2,12 +2,16 @@ import { useState } from 'react';
 import { Input, Button, Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useSearch } from '../context/SearchContext';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = () => {
 	const { handleSearch } = useSearch();
 	const [query, setQuery] = useState('');
+	const navigate = useNavigate();
+
 	const onSearch = () => {
 		handleSearch(query);
+		navigate('/drinks', { state: { query } });
 	};
 
 	return (

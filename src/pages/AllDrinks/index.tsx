@@ -37,16 +37,17 @@ const AllDrinks = () => {
 									cursor: 'pointer',
 									border: '2px solid white',
 									padding: 2,
+									minHeight: 206,
 								}}
 								onClick={() => handleOnClick(drink.id)}
 							>
 								<CardMedia
 									component="img"
-									sx={{ width: '25%', objectFit: 'contain' }}
+									sx={{ width: '30%', objectFit: 'cover' }}
 									image={drink.image}
 									alt={drink.name}
 								/>
-								<Box sx={{ display: 'flex', flexDirection: 'column', width: '75%' }}>
+								<Box sx={{ display: 'flex', flexDirection: 'column', width: '70%' }}>
 									<CardContent sx={{ flex: '1 0 auto' }}>
 										<Typography variant="h6">{drink.name}</Typography>
 										<CategoryTag category={drink.category} />
