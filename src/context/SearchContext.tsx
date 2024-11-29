@@ -41,7 +41,7 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 	const fetchDrinkDetails = async (id: string) => {
 		setDrinkDetailsLoading(true);
 		try {
-			const response = await fetch(`${import.meta.env.VITE_API_URL}/api/drinks/detail?id=${id}`);
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/api/detail?id=${id}`);
 			const data = await response.json();
 			const drink = data.drinks[0];
 			if (drink) {
@@ -58,7 +58,7 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 	const fetchDrinks = async () => {
 		setSearchDrinkLoading(true);
 		try {
-			const response = await fetch(`${import.meta.env.VITE_API_URL}/api/drinks/search?index=${offset}&limit=${limit}&query=${query}`);
+			const response = await fetch(`${import.meta.env.VITE_API_URL}/api/search?index=${offset}&limit=${limit}&query=${query}`);
 			const data = await response.json();
 			setDrinks(data.drinks);
 			setTotalCount(data.totalCount);
