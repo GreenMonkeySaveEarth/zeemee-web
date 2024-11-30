@@ -10,7 +10,7 @@ import CategoryTag from '@/components/CategoryTag';
 
 const AllDrinks = () => {
 	const navigate = useNavigate();
-	const { drinks, setPage, page, searchDrinkLoading, query, totalCount, setOffset, limit } = useSearch();
+	const { drinks, setPage, page, searchDrinkLoading, query, totalCount, setOffset, limit, offset } = useSearch();
 	const handlePrevPage = () => {
 		setPage((prev) => Math.max(prev - 1, 1))
 		setOffset((prev) => Math.max(prev - limit, 0))
@@ -59,7 +59,7 @@ const AllDrinks = () => {
 				</Grid>
 				<Box sx={{ mt: 2 }}>
 					<Button sx={{ color: 'Sky.White' }} onClick={handlePrevPage} disabled={page === 1} startIcon={<ChevronLeftOutlinedIcon />} />
-					<Button sx={{ color: 'Sky.White' }} onClick={handleNextPage} endIcon={<ChevronRightOutlinedIcon />} />
+					<Button sx={{ color: 'Sky.White' }} onClick={handleNextPage} disabled={offset + limit >= totalCount} endIcon={<ChevronRightOutlinedIcon />} />
 				</Box>
 			</Box>
 		);

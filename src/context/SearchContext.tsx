@@ -5,6 +5,7 @@ interface SearchContextProps {
 	handleSearch: (searchQuery: string) => void;
 	drinks: Drink[] | [];
 	setPage: React.Dispatch<React.SetStateAction<number>>;
+	offset: number;
 	setOffset: React.Dispatch<React.SetStateAction<number>>;
 	limit: number;
 	page: number;
@@ -35,6 +36,7 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 	}, [page, query]);
 
 	const handleSearch = (searchQuery: string): void => {
+		setOffset(0);
 		setQuery(searchQuery);
 	};
 
@@ -75,6 +77,7 @@ export const SearchProvider = ({ children }: SearchProviderProps): JSX.Element =
 			drinks,
 			limit,
 			setPage,
+			offset,
 			setOffset,
 			page,
 			searchDrinkLoading,
