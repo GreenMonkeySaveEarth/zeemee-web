@@ -1,5 +1,7 @@
 # Drink Web Server
 
+This project is an implementation of the [Zeemee fullstack exercise example with design](https://github.com/zeemee/fullstack-code-sample-with-design)
+
 This project is to serve the zeewee drink web page.
 
 ## Table of Contents
