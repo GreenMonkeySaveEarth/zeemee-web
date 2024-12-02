@@ -2,7 +2,7 @@
 
 This project is an implementation of the [Zeemee fullstack exercise example with design](https://github.com/zeemee/fullstack-code-sample-with-design)
 
-This project is to serve the zeewee drink web page.
+This project is to serve the zeemee drink web page.
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@ This project is to serve the zeewee drink web page.
 
 ## Project Overview
 
-This is a Vite React project that creates a zeewee drink page. The application allows users to browse and search for various drink recipes.
+This is a Vite React project that creates a zeemee drink page. The application allows users to browse and search for various drink recipes.
 
 ## Technologies Used
 
@@ -32,7 +32,7 @@ This is a Vite React project that creates a zeewee drink page. The application a
 
 1. Clone the repository:
    ```sh
-  git@github.com:GreenMonkeySaveEarth/zeewee-web.git
+  git@github.com:GreenMonkeySaveEarth/zeemee-web.git
   ```
 2. Install dependencies:
 ```npm install```
