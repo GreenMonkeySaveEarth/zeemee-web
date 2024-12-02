@@ -27,13 +27,10 @@ This is a Vite React project that creates a zeemee drink page. The application a
 - ESLint
 - Prettier
 
-
 ## Installation
 
 1. Clone the repository:
-   ```sh
-  git@github.com:GreenMonkeySaveEarth/zeemee-web.git
-  ```
+   ```sh git@github.com:GreenMonkeySaveEarth/zeemee-web.git```
 2. Install dependencies:
 ```npm install```
 3. Set up environment variables: Create a `.env` file in the root directory and add the following:
@@ -93,8 +90,7 @@ This is a Vite React project that creates a zeemee drink page. The application a
   - Add support for multiple languages.
   - Use libraries like react-i18next for managing translations.
 
-8. 
-Testing:
+8. Testing:
   - Increase test coverage with unit tests, integration tests, and end-to-end tests.
   - Use testing libraries like Jest, React Testing Library, and Cypress.
 
